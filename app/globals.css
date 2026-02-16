@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* Prevent horizontal scroll on mobile */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure all sections are properly contained */
+* {
+  box-sizing: border-box;
+}
+
+/* 3D Carousel Perspective */
+.perspective-container {
+  perspective: 1500px;
+  perspective-origin: center center;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
