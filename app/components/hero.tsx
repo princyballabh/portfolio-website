@@ -77,7 +77,7 @@ export default function Hero() {
       {/* Layer 1.5: Mountains */}
       <motion.div
         style={{ y: mountainY }}
-        className="absolute bottom-0 left-0 right-0 h-[60%] -z-15 will-change-transform"
+        className="absolute bottom-0 left-0 right-0 h-[60%] -z-10 md:-z-15 will-change-transform"
       >
         <img
           src="/assets/mountain.png"
@@ -89,7 +89,7 @@ export default function Hero() {
       {/* Layer 2: Planets */}
       <motion.div
         style={{ y: planetsY }}
-        className="absolute inset-0 w-full h-full -z-10 will-change-transform"
+        className="absolute inset-0 w-full h-full -z-5 md:-z-10 will-change-transform"
       >
         {planets.map((planet, index) => (
           <motion.div
@@ -121,7 +121,7 @@ export default function Hero() {
         className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center px-6 w-full max-w-7xl mx-auto will-change-transform"
       >
         {/* Left Side: Text Content */}
-        <div className="flex flex-col gap-6 text-left">
+        <div className="flex flex-col gap-6 text-center md:text-left">
           {/* Desktop View */}
           <div className="hidden md:flex md:flex-col">
             <motion.h1
@@ -170,7 +170,7 @@ export default function Hero() {
           {/* Mobile View */}
           <div className="flex flex-col space-y-6 md:hidden">
             <motion.p
-              className="text-3xl font-medium text-gray-300"
+              className="text-4xl font-medium text-gray-300"
               variants={variants}
               initial="hidden"
               animate="visible"
@@ -180,7 +180,7 @@ export default function Hero() {
             </motion.p>
             <div>
               <motion.p
-                className="text-4xl font-black text-neutral-300"
+                className="text-5xl font-black text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"
@@ -197,11 +197,11 @@ export default function Hero() {
               >
                 <FlipWords
                   words={words}
-                  className="font-bold text-white text-5xl"
+                  className="font-bold text-white text-6xl"
                 />
               </motion.div>
               <motion.p
-                className="text-3xl font-black text-neutral-300"
+                className="text-4xl font-black text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"

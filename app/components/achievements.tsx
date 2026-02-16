@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface Achievement {
   id: number;
@@ -94,12 +95,24 @@ const achievements: Achievement[] = [
 ];
 
 export default function Achievements() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <section className="relative py-20 px-6">
+    <section className="relative py-12 md:py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section Heading */}
         <motion.h2
-          className="text-5xl md:text-6xl font-bold text-white mb-4 text-center"
+          className="text-3xl md:text-6xl font-bold text-white mb-4 text-center"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -125,10 +138,12 @@ export default function Achievements() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: false }}
               style={{
-                marginLeft: `${index * 4}rem`,
+                marginLeft: isMobile ? '0' : `${index * 4}rem`,
               }}
             >
-              <div className="bg-gradient-to-r from-slate-800/80 to-slate-900/90 border border-purple-500/20 rounded-2xl p-6 shadow-xl backdrop-blur-sm hover:border-purple-400/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300 hover:scale-[1.02] max-w-4xl">
+              <div 
+                className="bg-gradient-to-r from-slate-800/80 to-slate-900/90 border border-purple-500/20 rounded-2xl p-4 md:p-6 shadow-xl backdrop-blur-sm hover:border-purple-400/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300 hover:scale-[1.02] max-w-4xl"
+              >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -146,10 +161,10 @@ export default function Achievements() {
                       </span>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-white mb-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
                       {item.title}
                     </h3>
-                    <p className="text-purple-300 text-sm mb-3">
+                    <p className="text-purple-300 text-xs md:text-sm mb-3">
                       {item.subtitle}
                     </p>
                   </div>

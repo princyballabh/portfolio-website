@@ -39,7 +39,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative py-20 px-6 overflow-hidden">
+    <section className="relative py-12 md:py-20 px-6 overflow-hidden">
       {/* Left Border */}
       <img
         src="/assets/left-border.png"
@@ -56,7 +56,7 @@ export default function Contact() {
       
       <div className="max-w-2xl mx-auto w-full relative z-10">
         <motion.h2
-          className="text-5xl md:text-6xl font-bold text-white mb-4 text-center"
+          className="text-3xl md:text-6xl font-bold text-white mb-4 text-center"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}

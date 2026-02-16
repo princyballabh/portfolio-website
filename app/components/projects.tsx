@@ -133,10 +133,11 @@ export default function Projects() {
   const getCardTransform = (offset: number) => {
     const isCenter = offset === 0;
     const absOffset = Math.abs(offset);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     // Stronger perspective with curved arrangement
     const angle = offset * 45; // Rotation angle
-    const radius = 500; // Radius of the carousel arc
+    const radius = isMobile ? 300 : 500; // Smaller radius for mobile
     const x = Math.sin((offset * Math.PI) / 4) * radius;
     const z = Math.cos((offset * Math.PI) / 4) * radius - radius;
 
@@ -152,7 +153,7 @@ export default function Projects() {
   return (
     <section
       id="projects-section"
-      className="relative min-h-screen flex items-center justify-center py-8 px-6"
+      className="relative min-h-screen flex items-center justify-center py-4 md:py-8 px-6"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -164,7 +165,7 @@ export default function Projects() {
         {/* Section Heading */}
         <div className="text-center mt-4">
                 <motion.h2
-                  className="text-5xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
+                  className="text-3xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: false }}
@@ -198,7 +199,7 @@ export default function Projects() {
               </div>
 
               {/* 3D Carousel Slider */}
-              <div className="relative h-[550px] flex items-center justify-center perspective-container mt-12">
+              <div className="relative h-[400px] md:h-[550px] flex items-center justify-center perspective-container mt-8 md:mt-12">
                 <div className="relative w-full h-full flex items-center justify-center preserve-3d">
                   <AnimatePresence mode="popLayout">
                     {getVisibleCards().map(({ project, offset }) => {
@@ -208,7 +209,7 @@ export default function Projects() {
                       return (
                         <motion.div
                           key={project.id}
-                          className="absolute w-[380px] h-[520px] cursor-pointer"
+                          className="absolute w-[280px] md:w-[380px] h-[380px] md:h-[520px] cursor-pointer"
                           initial={false}
                           animate={{
                             x: transform.x,
@@ -242,7 +243,7 @@ export default function Projects() {
                             }}
                           >
                             {/* Image Container */}
-                            <div className="relative h-64 w-full overflow-hidden bg-slate-900/50">
+                            <div className="relative h-44 md:h-64 w-full overflow-hidden bg-slate-900/50">
                               <Image
                                 src={project.image}
                                 alt={project.title}
@@ -256,9 +257,9 @@ export default function Projects() {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 space-y-4 flex flex-col h-[calc(100%-16rem)]">
+                            <div className="p-4 md:p-6 space-y-2 md:space-y-4 flex flex-col h-[calc(100%-11rem)] md:h-[calc(100%-16rem)]">
                               <h3
-                                className={`text-2xl font-bold transition-colors duration-300 ${
+                                className={`text-lg md:text-2xl font-bold transition-colors duration-300 ${
                                   isCenter ? "text-white" : "text-gray-200"
                                 }`}
                               >
@@ -266,7 +267,7 @@ export default function Projects() {
                               </h3>
 
                               <p
-                                className={`text-sm leading-relaxed line-clamp-3 flex-1 transition-colors duration-300 ${
+                                className={`text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 flex-1 transition-colors duration-300 ${
                                   isCenter ? "text-gray-300" : "text-gray-400"
                                 }`}
                               >
@@ -274,13 +275,13 @@ export default function Projects() {
                               </p>
 
                               {/* Live Demo Button */}
-                              <div className="flex justify-center pt-2">
+                              <div className="flex justify-center pt-1 md:pt-2">
                                 {(project.live || project.github) && (
                                   <a
                                     href={project.live || project.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="py-2.5 px-8 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-lg text-white text-sm font-semibold transition-all hover:scale-105 shadow-lg hover:shadow-purple-500/50"
+                                    className="py-2 md:py-2.5 px-5 md:px-8 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-lg text-white text-xs md:text-sm font-semibold transition-all hover:scale-105 shadow-lg hover:shadow-purple-500/50"
                                     onClick={(e) => e.stopPropagation()}
                                   >
                                     {project.live
@@ -300,11 +301,11 @@ export default function Projects() {
                 {/* Navigation Buttons */}
                 <button
                   onClick={prevSlide}
-                  className="absolute left-8 z-30 w-14 h-14 rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 hover:from-purple-500/50 hover:to-blue-500/50 border-2 border-purple-400/30 hover:border-purple-400/60 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-md shadow-xl"
+                  className="absolute left-2 md:left-8 z-30 w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 hover:from-purple-500/50 hover:to-blue-500/50 border-2 border-purple-400/30 hover:border-purple-400/60 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-md shadow-xl"
                   aria-label="Previous project"
                 >
                   <svg
-                    className="w-7 h-7"
+                    className="w-5 h-5 md:w-7 md:h-7"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -320,11 +321,11 @@ export default function Projects() {
 
                 <button
                   onClick={nextSlide}
-                  className="absolute right-8 z-30 w-14 h-14 rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 hover:from-purple-500/50 hover:to-blue-500/50 border-2 border-purple-400/30 hover:border-purple-400/60 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-md shadow-xl"
+                  className="absolute right-2 md:right-8 z-30 w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 hover:from-purple-500/50 hover:to-blue-500/50 border-2 border-purple-400/30 hover:border-purple-400/60 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-md shadow-xl"
                   aria-label="Next project"
                 >
                   <svg
-                    className="w-7 h-7"
+                    className="w-5 h-5 md:w-7 md:h-7"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -340,15 +341,15 @@ export default function Projects() {
               </div>
 
               {/* Dots Indicator */}
-              <div className="flex justify-center items-center gap-3 mt-8">
+              <div className="flex justify-center items-center gap-2 md:gap-3 mt-6 md:mt-8">
                 {projects.map((project, index) => (
                   <button
                     key={project.id}
                     onClick={() => goToSlide(index)}
                     className={`transition-all duration-300 ${
                       index === currentIndex
-                        ? "w-10 h-3.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg shadow-purple-500/50"
-                        : "w-3.5 h-3.5 bg-purple-500/30 hover:bg-purple-500/60 rounded-full border border-purple-400/20"
+                        ? "w-8 h-2.5 md:w-10 md:h-3.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg shadow-purple-500/50"
+                        : "w-2.5 h-2.5 md:w-3.5 md:h-3.5 bg-purple-500/30 hover:bg-purple-500/60 rounded-full border border-purple-400/20"
                     }`}
                     aria-label={`Go to project ${index + 1}`}
                   />

@@ -7,7 +7,7 @@ export default function About() {
   return (
     <section
       id="about-section"
-      className="relative min-h-screen flex items-center justify-center py-100 px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-12 md:py-20 px-6 overflow-hidden"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -27,7 +27,7 @@ export default function About() {
           >
             <div>
               <motion.h2
-                className="text-5xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
+                className="text-3xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: false }}
@@ -103,7 +103,7 @@ export default function About() {
             </motion.div>
           </motion.div>
 
-          {/* Right Side: Semicircular Photo Design with Satellite */}
+          {/* Right Side: Semicircular Photo Design with Satellite - DESKTOP ONLY */}
           <div className="absolute ml-195 translate-x-1/4 hidden lg:block">
             <div className="relative w-[750px] h-[750px]">
               {/* Outer Semicircle - Satellite Orbit Path */}
@@ -143,14 +143,6 @@ export default function About() {
                 </motion.div>
               </motion.div>
 
-              {/* Inner Semicircle Frame (Dark Border) */}
-              {/* <div className="absolute inset-[50px]">
-                <div
-                  className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full shadow-2xl"
-                  style={{ clipPath: "inset(0 50% 0 0)" }}
-                />
-              </div> */}
-
               {/* Photo inside Inner Semicircle */}
               <div className="absolute inset-[0px]">
                 <div
@@ -169,6 +161,63 @@ export default function About() {
               </div>
             </div>
           </div>
+
+          {/* Right Side: Complete Circle Photo Design with Satellite - MOBILE ONLY */}
+          <motion.div 
+            className="flex justify-center mt-12 lg:hidden"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: false }}
+          >
+            <div className="relative w-[300px] h-[300px]">
+              {/* Complete Circle - Satellite Orbit Path */}
+              <div className="absolute inset-[-40px]">
+                <div className="absolute inset-0 border-2 border-dashed border-purple-500/30 rounded-full" />
+              </div>
+
+              {/* Satellite animation on complete circular orbit */}
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="absolute inset-[-60px]"
+              >
+                <motion.div
+                  animate={{ rotate: [0, -360] }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="absolute left-1/2 top-0 -translate-x-1/2 w-12 h-12"
+                >
+                  <Image
+                    src="/assets/satellite.png"
+                    alt="Satellite"
+                    fill
+                    sizes="48px"
+                    className="object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]"
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Complete Circle Photo */}
+              <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-purple-500/20">
+                <Image
+                  src="/assets/memobile.png"
+                  alt="Princy Ballabh"
+                  fill
+                  sizes="300px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>
