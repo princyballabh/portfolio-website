@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+/* Lenis Smooth Scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 /* Prevent horizontal scroll on mobile */
 html,
 body {
@@ -25,4 +47,15 @@ html {
 
 .preserve-3d {
   transform-style: preserve-3d;
+}
+
+/* Space-themed text styling */
+.space-text {
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 
+    0 0 10px rgba(168, 85, 247, 0.8),
+    0 0 20px rgba(168, 85, 247, 0.6),
+    0 0 30px rgba(168, 85, 247, 0.4),
+    0 0 40px rgba(59, 130, 246, 0.3);
+  letter-spacing: 0.05em;
 }

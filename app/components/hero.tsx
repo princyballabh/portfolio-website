@@ -1,26 +1,32 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FlipWords } from "./FlipWords";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 
-const SpacemanScene = dynamic(() => import("./spaceman-scene"), {
-  ssr: false,
-});
+// const SpacemanScene = dynamic(() => import("./spaceman-scene"), {
+//   ssr: false,
+// });
 
 export default function Hero() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start end", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 160,
+    damping: 25,
+    restDelta: 0.001,
   });
 
   // Smoother parallax effects with increased separation between layers
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const mountainY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
-  const planetsY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const modelY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const bgY = useTransform(smoothProgress, [0, 1], [-200, 200]);
+  const mountainY = useTransform(smoothProgress, [0, 1], [0, 100]);
+  const planetsY = useTransform(smoothProgress, [0, 1], [0, 160]);
+  const modelY = useTransform(smoothProgress, [0, 1], [0, 100]);
 
   const words = ["Innovative", "Secure", "Modern", "Scalable"];
 
@@ -33,23 +39,23 @@ export default function Hero() {
   const planets = [
     {
       src: "/assets/planet-1.png",
-      size: 200,
-      top: "10%",
-      right: "50%",
+      size: 180,
+      bottom: "45%",
+      right: "80%",
       delay: 0,
     },
     {
-      src: "/assets/planet-2.png",
+      src: "/assets/planet-3.png",
       size: 150,
-      top: "35%",
-      right: "9%",
+      top: "23%",
+      right: "7%",
       delay: 0.2,
     },
     {
-      src: "/assets/planet-3.png",
-      size: 180,
-      bottom: "8%",
-      right: "38%",
+      src: "/assets/planet-2.png",
+      size: 130,
+      bottom: "68%",
+      right: "68%",
       delay: 0.4,
     },
   ];
@@ -65,24 +71,24 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full -z-20 will-change-transform"
       >
         <img
-          src="/assets/bg-layer.jpg"
+          src="/assets/bg.jpg"
           alt="Space background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
       </motion.div>
 
       {/* Transparent Black Overlay */}
-      <div className="absolute inset-0 w-full h-full bg-black/40 -z-19" />
+      {/* <div className="absolute inset-0 w-full h-full bg-black/40 -z-19" /> */}
 
       {/* Layer 1.5: Mountains */}
       <motion.div
         style={{ y: mountainY }}
-        className="absolute bottom-0 left-0 right-0 h-[60%] -z-10 md:-z-15 will-change-transform"
+        className="absolute top-60 left-0 right-0 h-[85%] -z-10 md:-z-20 will-change-transform"
       >
         <img
           src="/assets/mountain.png"
           alt="Mountains"
-          className="w-full h-full object-cover object-bottom"
+          className="w-full h-full object-cover"
         />
       </motion.div>
 
@@ -118,14 +124,14 @@ export default function Hero() {
       {/* Layer 3: Text and Spaceman */}
       <motion.div
         style={{ y: modelY }}
-        className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center px-6 w-full max-w-7xl mx-auto will-change-transform"
+        className="relative items-center text-center px-6 w-full max-w-7xl mx-auto will-change-transform"
       >
         {/* Left Side: Text Content */}
-        <div className="flex flex-col gap-6 text-center md:text-left">
+        <div className="flex flex-col gap-6 items-center text-center md:text-center">
           {/* Desktop View */}
           <div className="hidden md:flex md:flex-col">
             <motion.h1
-              className="text-3xl font-medium text-gray-300"
+              className="text-4xl text-center font-medium text-gray-300"
               variants={variants}
               initial="hidden"
               animate="visible"
@@ -133,9 +139,9 @@ export default function Hero() {
             >
               Hi, I'm Princy
             </motion.h1>
-            <div className="flex flex-col items-start mt-4">
+            <div className="flex flex-col items-center mt-4">
               <motion.p
-                className="text-4xl font-medium text-neutral-300"
+                className="text-4xl text-center font-medium text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"
@@ -148,21 +154,22 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 1.5 }}
-                className="my-4"
+                className="my-4 flex items-center justify-center"
               >
                 <FlipWords
                   words={words}
-                  className="font-black text-white text-6xl"
+                  className="font-black text-center items-center text-white text-7xl space-text mt-4.5 mb-4.5"
+                  style={{ fontFamily: "Orbitron, sans-serif" }}
                 />
               </motion.div>
               <motion.p
-                className="text-3xl font-medium text-neutral-300"
+                className="text-4xl text-center font-medium text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 1.8 }}
               >
-                Digital Experiences
+                Web Solutions
               </motion.p>
             </div>
           </div>
@@ -197,7 +204,8 @@ export default function Hero() {
               >
                 <FlipWords
                   words={words}
-                  className="font-bold text-white text-6xl"
+                  className="font-bold text-white text-6xl space-text"
+                  style={{ fontFamily: "Orbitron, sans-serif" }}
                 />
               </motion.div>
               <motion.p
@@ -214,9 +222,9 @@ export default function Hero() {
         </div>
 
         {/* Right Side: Spaceman */}
-        <div className="flex justify-center lg:justify-end">
+        {/* <div className="flex justify-center lg:justify-end">
           <SpacemanScene />
-        </div>
+        </div> */}
       </motion.div>
     </section>
   );

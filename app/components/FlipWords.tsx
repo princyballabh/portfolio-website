@@ -7,12 +7,14 @@ interface FlipWordsProps {
   words: string[];
   duration?: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const FlipWords = ({
   words,
   duration = 3000,
   className = "",
+  style,
 }: FlipWordsProps) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -60,6 +62,7 @@ export const FlipWords = ({
           position: "absolute",
         }}
         className={`z-10 inline-block relative text-left ${className}`}
+        style={style}
         key={currentWord}
       >
         {/* edit suggested by Sajal: https://x.com/DewanganSajal */}

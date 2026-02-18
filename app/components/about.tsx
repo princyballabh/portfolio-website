@@ -7,7 +7,7 @@ export default function About() {
   return (
     <section
       id="about-section"
-      className="relative min-h-screen flex items-center justify-center py-12 md:py-20 px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-100 px-6 overflow-hidden"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -27,7 +27,7 @@ export default function About() {
           >
             <div>
               <motion.h2
-                className="text-3xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
+                className="text-5xl md:text-6xl font-bold text-white mb-4 overflow-hidden"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: false }}
@@ -103,9 +103,9 @@ export default function About() {
             </motion.div>
           </motion.div>
 
-          {/* Right Side: Semicircular Photo Design with Satellite - DESKTOP ONLY */}
-          <div className="absolute ml-195 translate-x-1/4 hidden lg:block">
-            <div className="relative w-[750px] h-[750px]">
+          {/* Right Side: Semicircular Photo Design with Satellite */}
+          <div className="absolute ml-180 translate-x-1/4 hidden lg:block">
+            <div className="relative w-[850px] h-[850px]">
               {/* Outer Semicircle - Satellite Orbit Path */}
               <div className="absolute inset-[-100px]">
                 <div
@@ -163,7 +163,7 @@ export default function About() {
           </div>
 
           {/* Right Side: Complete Circle Photo Design with Satellite - MOBILE ONLY */}
-          <motion.div 
+          <motion.div
             className="flex justify-center mt-12 lg:hidden"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
