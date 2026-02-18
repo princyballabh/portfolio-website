@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FlipWords } from "./FlipWords";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 // const SpacemanScene = dynamic(() => import("./spaceman-scene"), {
@@ -11,6 +11,19 @@ import dynamic from "next/dynamic";
 
 export default function Hero() {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -39,21 +52,24 @@ export default function Hero() {
   const planets = [
     {
       src: "/assets/planet-1.png",
-      size: 180,
+      mobileSize: 90,
+      desktopSize: 180,
       bottom: "45%",
       right: "80%",
       delay: 0,
     },
     {
       src: "/assets/planet-3.png",
-      size: 150,
+      mobileSize: 75,
+      desktopSize: 150,
       top: "23%",
       right: "7%",
       delay: 0.2,
     },
     {
       src: "/assets/planet-2.png",
-      size: 130,
+      mobileSize: 65,
+      desktopSize: 130,
       bottom: "68%",
       right: "68%",
       delay: 0.4,
@@ -97,28 +113,31 @@ export default function Hero() {
         style={{ y: planetsY }}
         className="absolute inset-0 w-full h-full -z-5 md:-z-10 will-change-transform"
       >
-        {planets.map((planet, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: planet.delay }}
-            className="absolute"
-            style={{
-              top: planet.top,
-              right: planet.right,
-              bottom: planet.bottom,
-              width: planet.size,
-              height: planet.size,
-            }}
-          >
-            <img
-              src={planet.src}
-              alt={`Planet ${index + 1}`}
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
-        ))}
+        {planets.map((planet, index) => {
+          const size = isMobile ? planet.mobileSize : planet.desktopSize;
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: planet.delay }}
+              className="absolute"
+              style={{
+                top: planet.top,
+                right: planet.right,
+                bottom: planet.bottom,
+                width: size,
+                height: size,
+              }}
+            >
+              <img
+                src={planet.src}
+                alt={`Planet ${index + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
+          );
+        })}
       </motion.div>
 
       {/* Layer 3: Text and Spaceman */}
@@ -127,7 +146,7 @@ export default function Hero() {
         className="relative items-center text-center px-6 w-full max-w-7xl mx-auto will-change-transform"
       >
         {/* Left Side: Text Content */}
-        <div className="flex flex-col gap-6 items-center text-center md:text-center">
+        <div className="flex flex-col gap-6 items-center mb-35 text-center md:text-center">
           {/* Desktop View */}
           <div className="hidden md:flex md:flex-col">
             <motion.h1
@@ -175,9 +194,9 @@ export default function Hero() {
           </div>
 
           {/* Mobile View */}
-          <div className="flex flex-col space-y-6 md:hidden">
+          <div className="flex flex-col space-y-5 mb-20 md:hidden">
             <motion.p
-              className="text-4xl font-medium text-gray-300"
+              className="text-3xl font-medium text-gray-300"
               variants={variants}
               initial="hidden"
               animate="visible"
@@ -187,13 +206,13 @@ export default function Hero() {
             </motion.p>
             <div>
               <motion.p
-                className="text-5xl font-black text-neutral-300"
+                className="text-3xl font-black text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 1.2 }}
               >
-                Creating
+                Building
               </motion.p>
               <motion.div
                 variants={variants}
@@ -204,18 +223,18 @@ export default function Hero() {
               >
                 <FlipWords
                   words={words}
-                  className="font-bold text-white text-6xl space-text"
+                  className="font-bold text-white text-4xl space-text"
                   style={{ fontFamily: "Orbitron, sans-serif" }}
                 />
               </motion.div>
               <motion.p
-                className="text-4xl font-black text-neutral-300"
+                className="text-3xl font-black text-neutral-300"
                 variants={variants}
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 1.8 }}
               >
-                Digital Solutions
+                Web Solutions
               </motion.p>
             </div>
           </div>

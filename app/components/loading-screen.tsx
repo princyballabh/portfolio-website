@@ -9,34 +9,69 @@ export default function LoadingScreen({
   onLoadingComplete: () => void;
 }) {
   const [progress, setProgress] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => onLoadingComplete(), 500);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 30);
+    // List of all images to preload
+    const imageUrls = [
+      "/assets/bg.jpg",
+      "/assets/mountain.png",
+      "/assets/planet-1.png",
+      "/assets/planet-2.png",
+      "/assets/planet-3.png",
+      "/assets/project/tradematrix.png",
+      "/assets/project/passlock.png",
+      "/assets/project/textutils.png",
+      "/assets/project/gst-calc.png",
+      "/assets/project/codepenclone.png",
+      "/assets/left-border.png",
+      "/assets/right-border.png",
+      "/assets/satellite.png",
+      "/assets/me.png",
+      "/assets/memobile.png",
+    ];
 
-    // Also wait for actual page load
-    const handleLoad = () => {
-      setProgress(100);
+    let loadedCount = 0;
+    const totalImages = imageUrls.length;
+
+    // Preload all images
+    const loadImage = (url: string) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedCount++;
+          const newProgress = Math.floor((loadedCount / totalImages) * 100);
+          setProgress(newProgress);
+          resolve(url);
+        };
+        img.onerror = () => {
+          loadedCount++;
+          const newProgress = Math.floor((loadedCount / totalImages) * 100);
+          setProgress(newProgress);
+          resolve(url); // Still resolve even on error to not block loading
+        };
+        img.src = url;
+      });
     };
 
-    if (document.readyState === "complete") {
+    // Load all images
+    Promise.all(imageUrls.map(loadImage)).then(() => {
+      setImagesLoaded(true);
       setProgress(100);
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
+      setTimeout(() => onLoadingComplete(), 500);
+    });
+
+    // Fallback timeout (if images take too long, proceed anyway after 10 seconds)
+    const fallbackTimeout = setTimeout(() => {
+      if (!imagesLoaded) {
+        setProgress(100);
+        setImagesLoaded(true);
+        setTimeout(() => onLoadingComplete(), 500);
+      }
+    }, 10000);
 
     return () => {
-      clearInterval(interval);
-      window.removeEventListener("load", handleLoad);
+      clearTimeout(fallbackTimeout);
     };
   }, [onLoadingComplete]);
 
