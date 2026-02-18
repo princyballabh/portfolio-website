@@ -194,7 +194,7 @@ export default function Hero() {
           </div>
 
           {/* Mobile View */}
-          <div className="flex flex-col space-y-5 mb-20 md:hidden">
+          <div className="flex flex-col space-y-4 md:hidden">
             <motion.p
               className="text-3xl font-medium text-gray-300"
               variants={variants}
@@ -203,6 +203,15 @@ export default function Hero() {
               transition={{ delay: 1 }}
             >
               Hi, I'm Princy
+            </motion.p>
+            <motion.p
+              className="text-2xl font-medium text-neutral-300"
+              variants={variants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 1.1 }}
+            >
+              Full Stack Developer
             </motion.p>
             <div>
               <motion.p

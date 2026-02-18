@@ -68,38 +68,48 @@ export default function About() {
               viewport={{ once: false }}
             >
               <p className="text-gray-300 text-lg leading-relaxed">
-                I'm{" "}
+                Hey, I'm{" "}
                 <span className="text-white font-semibold">Princy Ballabh</span>
-                , a final-year Computer Science and Engineering student at the
-                University of Lucknow with a CGPA of 8.75. Over the course of my
-                degree, I've built a solid foundation in data structures,
-                algorithms, operating systems, DBMS, and computer networks, and
-                I've also qualified GATE (CS) in the third year of my college,
-                which strengthened my problem-solving skills.
+                , a full-stack developer who genuinely enjoys building things
+                from scratch and watching them come to life on the web.
               </p>
 
               <p className="text-gray-400 leading-relaxed">
-                On the practical side, I enjoy developing projects that bring
-                ideas to life. I've worked on full-stack applications like
-                'Trade Matrix' - an inventory and trading management system,
-                'PassLock' - a secure password manager. Currently, I'm interning
-                at StuFit, where I contribute to core feature development,
-                frontend of the portal, and it's integration.
+                I mostly work with Next.js, React, Node.js, and PostgreSQL, and
+                I love handling both sides of an application — designing smooth,
+                responsive frontends and building structured, scalable backends
+                behind the scenes. I pay attention to performance, clean UI, and
+                writing code that actually makes sense when I revisit it later.
               </p>
 
-              {/* <p className="text-gray-400 leading-relaxed">
-                Beyond academics, I've solved 200+ coding problems on
-                GeeksforGeeks (600+ score), secured 1st place in Code Abhyaas by
-                AlgoZenith, and actively contributed as a core team member in
-                communities like GDSC and AWS Cloud Club.
-              </p> */}
+              <p className="text-gray-400 leading-relaxed">
+                During my internship, I worked on real-world features across the
+                stack — building multi-role dashboards, integrating REST APIs,
+                improving UI responsiveness, and debugging production issues.
+                That experience helped me understand how real products evolve,
+                how teams collaborate, and why clean architecture and
+                maintainable code actually matter.
+              </p>
 
-              {/* <p className="text-gray-400 leading-relaxed">
-                I'm eager to apply my technical skills, problem-solving mindset,
-                and teamwork experience to challenging roles in software
-                development, where I can keep learning while delivering
-                impactful solutions.
-              </p> */}
+              <p className="text-gray-400 leading-relaxed">
+                Recently, I've also been exploring DevOps, working with Docker,
+                deployments, and cloud platforms as it is really important not
+                just to build applications, but also understand how they run,
+                scale, and survive in production.
+              </p>
+
+              <p className="text-gray-400 leading-relaxed">
+                I enjoy learning by building. Whether it's optimizing
+                performance, experimenting with animations, or designing better
+                system flows, I'm always trying to improve how I approach
+                problems.
+              </p>
+
+              <p className="text-gray-300 leading-relaxed">
+                Currently, I'm a final-year Computer Science and Engineering
+                student at the University of Lucknow with a CGPA of 8.75. <br />
+                Still learning! Still building! Always curious :)
+              </p>
             </motion.div>
           </motion.div>
 

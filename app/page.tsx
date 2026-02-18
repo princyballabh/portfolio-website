@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Hero from "./components/hero";
 import About from "./components/about";
+import TechnicalSkills from "./components/technical-skills";
 import Projects from "./components/projects";
 import Achievements from "./components/achievements";
 import Contact from "./components/contact";
@@ -26,6 +27,7 @@ export default function Home() {
       >
         <Hero />
         <About />
+        <TechnicalSkills />
         <Projects />
         <HorizontalScrollWrapper>
           <Achievements />
